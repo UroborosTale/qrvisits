@@ -1,0 +1,32 @@
+{% extends 'cards/base.html' %}
+{% block title %}{{ card.full_name }} · КМЗ{% endblock %}
+{% block content %}
+{% if preview %}<aside class="preview-note">{% if card.is_active %}Предпросмотр опубликованной визитки{% else %}Черновик · доступен только администратору{% endif %}<a href="{% url 'admin:cards_employeecard_change' card.pk %}">Вернуться к редактированию</a></aside>{% endif %}
+<p class="eyebrow">Электронная визитка</p>
+<section class="identity" aria-label="Сотрудник">
+{% if card.photo %}<img class="portrait" src="{% if preview %}{% url 'preview-photo' card.pk %}{% else %}{% url 'card-photo' card.pk %}{% endif %}" alt="{{ card.full_name }}" width="88" height="88">{% else %}<div class="initials" aria-hidden="true">{{ card.initials }}</div>{% endif %}
+<h1>{{ card.full_name }}</h1>
+{% if card.job_title %}<p class="job">{{ card.job_title }}</p>{% endif %}
+<p class="company">{{ company }}</p>
+{% if card.description %}<p class="description">{{ card.description|linebreaksbr }}</p>{% endif %}
+</section>
+{% if card.is_active %}<a class="button primary" href="{{ card.get_absolute_url }}contact.vcf" download>Сохранить контакт <span aria-hidden="true">↓</span></a>{% endif %}
+<section class="contacts" aria-label="Контактные данные">
+{% if card.phone %}<a class="contact" href="tel:{{ card.dial_phone }}"><span><span class="label">Телефон</span><span class="value">{{ card.phone }}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
+{% if card.email %}<a class="contact" href="mailto:{{ card.email }}"><span><span class="label">Рабочая почта</span><span class="value">{{ card.email }}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
+{% if card.website %}<a class="contact" href="{{ card.website }}" target="_blank" rel="noopener noreferrer"><span><span class="label">Сайт</span><span class="value">{{ card.website }}</span></span><span class="arrow" aria-hidden="true">↗</span></a>{% endif %}
+</section>
+<div class="actions">
+{% if card.messenger_url %}<a class="button secondary" href="{{ card.messenger_url }}" target="_blank" rel="noopener noreferrer">Написать ↗</a>{% endif %}
+{% if card.is_active %}<button class="button secondary" type="button" data-share="{{ public_url }}" data-name="{{ card.full_name }}">Поделиться</button><button class="button secondary" type="button" data-open-qr>QR-код</button>{% endif %}
+</div>
+<p class="share-status" aria-live="polite" role="status"></p>
+{% if card.is_active %}<dialog id="qr-dialog" aria-labelledby="qr-title">
+<div class="dialog-header"><h2 id="qr-title">Визитка по QR-коду</h2><button type="button" class="close" data-close-qr aria-label="Закрыть">×</button></div>
+<p>Наведите камеру телефона, чтобы открыть визитку.</p>
+<img class="qr" src="{{ card.get_absolute_url }}qr.png?inline=1" alt="QR-код визитки {{ card.full_name }}" width="280" height="280" loading="lazy">
+<a class="button primary" href="{{ card.get_absolute_url }}qr.png" download>Скачать QR-код</a>
+<p class="qr-link">{{ public_url }}</p>
+</dialog>{% endif %}
+<noscript><p>Чтобы поделиться визиткой, скопируйте её адрес из строки браузера.</p>{% if card.is_active %}<a href="{{ card.get_absolute_url }}qr.png">Открыть QR-код</a>{% endif %}</noscript>
+{% endblock %}

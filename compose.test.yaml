@@ -1,0 +1,10 @@
+# Always use a separate project: docker compose -p kmz-cards-qa -f compose.yaml -f compose.test.yaml run --build --rm app
+services:
+  app:
+    build:
+      context: .
+      target: test
+    environment:
+      KMZ_ENV: development
+    command: ["python", "manage.py", "test", "--noinput"]
+    restart: 'no'

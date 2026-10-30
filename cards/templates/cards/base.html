@@ -1,0 +1,15 @@
+{% load static %}<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="color-scheme" content="light">
+<title>{% block title %}КМЗ · Электронные визитки{% endblock %}</title>
+<link rel="icon" href="{% static 'cards/mark.png' %}">
+<link rel="stylesheet" href="{% static 'cards/card.css' %}">
+<script src="{% static 'cards/card.js' %}" defer></script>
+</head><body>
+<main class="card-shell">
+<header class="brand"><img src="{% static 'cards/logo.png' %}" alt="КМЗ — Центр вертикального транспорта" width="710" height="96"></header>
+{% block content %}{% endblock %}
+<footer>КМЗ · Центр вертикального транспорта</footer>
+</main></body></html>
