@@ -13,8 +13,8 @@
 </section>
 {% if card.is_active %}<a class="button primary" href="{{ card.get_absolute_url }}contact.vcf" download>Сохранить контакт <span aria-hidden="true">↓</span></a>{% endif %}
 <section class="contacts" aria-label="Контактные данные">
-{% if card.phone %}<a class="contact" href="{{ card.work_phone_uri }}"><span><span class="label">Рабочий телефон</span><span class="value">{{ card.phone }}{% if card.phone_extension %}, доб. {{ card.phone_extension }}{% endif %}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
-{% if card.mobile_phone %}<a class="contact" href="tel:{{ card.dial_mobile_phone }}"><span><span class="label">Мобильный телефон</span><span class="value">{{ card.mobile_phone }}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
+{% if card.phone %}<a class="contact" href="{{ card.work_phone_uri }}"><span><span class="label">Рабочий телефон</span><span class="value">{{ card.formatted_phone }}{% if card.phone_extension %}, доб. {{ card.phone_extension }}{% endif %}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
+{% if card.mobile_phone %}<a class="contact" href="tel:{{ card.dial_mobile_phone }}"><span><span class="label">Мобильный телефон</span><span class="value">{{ card.formatted_mobile_phone }}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
 {% if card.email %}<a class="contact" href="mailto:{{ card.email }}"><span><span class="label">Рабочая почта</span><span class="value">{{ card.email }}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
 <a class="contact" href="{{ company_website }}" target="_blank" rel="noopener noreferrer"><span><span class="label">Сайт КМЗ</span><span class="value">www.kmzlift.ru</span></span><span class="arrow" aria-hidden="true">↗</span></a>
 </section>

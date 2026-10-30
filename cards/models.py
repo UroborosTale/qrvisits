@@ -3,6 +3,7 @@ import uuid
 from django.core.validators import RegexValidator, URLValidator
 from django.db import models
 from django.core.exceptions import ValidationError
+from .phones import display_phone
 
 
 def photo_path(instance, filename):
@@ -57,7 +58,7 @@ class EmployeeCard(models.Model):
 
     @property
     def dial_phone(self):
-        return re.sub(r'[^+0-9]', '', self.phone)
+        return re.sub(r'[^+0-9]', '', self.formatted_phone)
 
     @property
     def work_phone_uri(self):
@@ -66,4 +67,12 @@ class EmployeeCard(models.Model):
 
     @property
     def dial_mobile_phone(self):
-        return re.sub(r'[^+0-9]', '', self.mobile_phone)
+        return re.sub(r'[^+0-9]', '', self.formatted_mobile_phone)
+
+    @property
+    def formatted_phone(self):
+        return display_phone(self.phone)
+
+    @property
+    def formatted_mobile_phone(self):
+        return display_phone(self.mobile_phone)
