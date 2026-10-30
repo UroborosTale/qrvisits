@@ -13,12 +13,17 @@ admin.site.site_url = None
 @admin.register(EmployeeCard)
 class EmployeeCardAdmin(admin.ModelAdmin):
     form = EmployeeCardForm
-    list_display = ['full_name', 'job_title', 'is_active', 'updated_at', 'card_links']
+    list_display = ['full_name', 'job_title', 'department', 'is_active', 'updated_at', 'card_links']
     list_filter = ['is_active']
-    search_fields = ['full_name', 'job_title', 'email']
+    search_fields = ['full_name', 'job_title', 'department', 'phone', 'mobile_phone', 'email']
     readonly_fields = ['id', 'created_at', 'updated_at', 'card_links']
-    fields = ['full_name', 'job_title', 'phone', 'email', 'photo', 'description',
-              'website', 'messenger_url', 'is_active', 'card_links', 'id', 'created_at', 'updated_at']
+    fieldsets = [
+        ('Данные визитки', {'fields': ['photo', 'full_name', 'job_title', 'department',
+            'phone', 'phone_extension', 'mobile_phone', 'website']}),
+        ('Публикация', {'fields': ['is_active', 'card_links']}),
+        ('Дополнительно', {'fields': ['email', 'description', 'messenger_url'], 'classes': ['collapse']}),
+        ('Служебные данные', {'fields': ['id', 'created_at', 'updated_at'], 'classes': ['collapse']}),
+    ]
     actions = ['disable_cards']
 
     def has_delete_permission(self, request, obj=None):

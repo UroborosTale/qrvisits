@@ -7,14 +7,16 @@
 {% if card.photo %}<img class="portrait" src="{% if preview %}{% url 'preview-photo' card.pk %}{% else %}{% url 'card-photo' card.pk %}{% endif %}" alt="{{ card.full_name }}" width="88" height="88">{% else %}<div class="initials" aria-hidden="true">{{ card.initials }}</div>{% endif %}
 <h1>{{ card.full_name }}</h1>
 {% if card.job_title %}<p class="job">{{ card.job_title }}</p>{% endif %}
+{% if card.department %}<p class="department">{{ card.department }}</p>{% endif %}
 <p class="company">{{ company }}</p>
 {% if card.description %}<p class="description">{{ card.description|linebreaksbr }}</p>{% endif %}
 </section>
 {% if card.is_active %}<a class="button primary" href="{{ card.get_absolute_url }}contact.vcf" download>Сохранить контакт <span aria-hidden="true">↓</span></a>{% endif %}
 <section class="contacts" aria-label="Контактные данные">
-{% if card.phone %}<a class="contact" href="tel:{{ card.dial_phone }}"><span><span class="label">Телефон</span><span class="value">{{ card.phone }}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
+{% if card.phone %}<a class="contact" href="{{ card.work_phone_uri }}"><span><span class="label">Рабочий телефон</span><span class="value">{{ card.phone }}{% if card.phone_extension %}, доб. {{ card.phone_extension }}{% endif %}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
+{% if card.mobile_phone %}<a class="contact" href="tel:{{ card.dial_mobile_phone }}"><span><span class="label">Мобильный телефон</span><span class="value">{{ card.mobile_phone }}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
 {% if card.email %}<a class="contact" href="mailto:{{ card.email }}"><span><span class="label">Рабочая почта</span><span class="value">{{ card.email }}</span></span><span class="arrow" aria-hidden="true">›</span></a>{% endif %}
-{% if card.website %}<a class="contact" href="{{ card.website }}" target="_blank" rel="noopener noreferrer"><span><span class="label">Сайт</span><span class="value">{{ card.website }}</span></span><span class="arrow" aria-hidden="true">↗</span></a>{% endif %}
+{% if card.website %}<a class="contact" href="{{ card.website }}" target="_blank" rel="noopener noreferrer"><span><span class="label">Сайт КМЗ</span><span class="value">{{ card.website }}</span></span><span class="arrow" aria-hidden="true">↗</span></a>{% endif %}
 </section>
 <div class="actions">
 {% if card.messenger_url %}<a class="button secondary" href="{{ card.messenger_url }}" target="_blank" rel="noopener noreferrer">Написать ↗</a>{% endif %}
