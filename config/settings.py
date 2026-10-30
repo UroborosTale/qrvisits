@@ -81,3 +81,4 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = 'no-referrer'
 X_FRAME_OPTIONS = 'DENY'
 COMPANY_NAME = 'Карачаровский механический завод'
+COMPANY_WEBSITE = 'https://www.kmzlift.ru'

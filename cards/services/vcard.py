@@ -36,7 +36,6 @@ def build_vcard(card):
         notes.append('Добавочный рабочего телефона: ' + card.phone_extension)
     if notes:
         lines.append('NOTE:' + escape('\n'.join(notes)))
-    if card.website:
-        lines.append('URL:' + card.website)
+    lines.append('URL:' + settings.COMPANY_WEBSITE)
     lines.extend(['URL:' + canonical_url(card), 'END:VCARD'])
     return b'\r\n'.join(fold(line) for line in lines) + b'\r\n'

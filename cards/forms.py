@@ -10,7 +10,7 @@ class EmployeeCardForm(forms.ModelForm):
     class Meta:
         model = EmployeeCard
         fields = ['photo', 'full_name', 'job_title', 'department', 'phone', 'phone_extension',
-                  'mobile_phone', 'website', 'email', 'description', 'messenger_url', 'is_active']
+                  'mobile_phone', 'email', 'description', 'messenger_url', 'is_active']
 
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')

@@ -73,7 +73,7 @@ class FormTests(TestCase):
         for values, field in [({'full_name': '  '}, 'full_name'),
                               ({'full_name': 'Иван', 'email': 'bad'}, 'email'),
                               ({'full_name': 'Иван', 'messenger_url': 'javascript:alert(1)'}, 'messenger_url'),
-                              ({'full_name': 'Иван', 'website': 'ftp://example.com'}, 'website'),
+                              ({'full_name': 'Иван', 'messenger_url': 'ftp://example.com'}, 'messenger_url'),
                               ({'full_name': 'Иван', 'phone': '123;ext=9'}, 'phone')]:
             with self.subTest(field=field):
                 form = EmployeeCardForm(data=values)

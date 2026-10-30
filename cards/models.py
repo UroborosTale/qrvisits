@@ -26,7 +26,9 @@ class EmployeeCard(models.Model):
     email = models.EmailField('Рабочая почта', blank=True)
     photo = models.ImageField('Фото', upload_to=photo_path, blank=True)
     description = models.TextField('О сотруднике', max_length=2000, blank=True)
-    website = models.URLField('Сайт КМЗ', max_length=500, blank=True, validators=[URLValidator(schemes=['http', 'https'])])
+    # Legacy per-card values retained for non-destructive upgrades; never displayed.
+    website = models.URLField('Сайт КМЗ', max_length=500, blank=True, editable=False,
+        validators=[URLValidator(schemes=['http', 'https'])])
     messenger_url = models.URLField('Мессенджер (https-ссылка)', max_length=500, blank=True,
         validators=[URLValidator(schemes=['http', 'https'])])
     is_active = models.BooleanField('Опубликована', default=False)

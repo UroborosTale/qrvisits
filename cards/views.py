@@ -25,7 +25,8 @@ def robots(request):
 
 def render_card(request, employee, preview=False):
     return render(request, 'cards/card.html', {
-        'card': employee, 'company': settings.COMPANY_NAME, 'preview': preview,
+        'card': employee, 'company': settings.COMPANY_NAME,
+        'company_website': settings.COMPANY_WEBSITE, 'preview': preview,
         'public_url': settings.PUBLIC_BASE_URL + employee.get_absolute_url(),
     })
 
